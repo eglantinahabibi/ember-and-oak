@@ -1,0 +1,84 @@
+html { 
+  scroll-behavior: smooth; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body { 
+  background-color: #171310; 
+}
+
+::-webkit-scrollbar { 
+  width: 10px; 
+}
+::-webkit-scrollbar-track { 
+  background: #171310; 
+}
+::-webkit-scrollbar-thumb { 
+  background: #3a3129; 
+  border-radius: 6px; 
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid #c89b4a;
+  outline-offset: 3px;
+}
+
+.menu-leader {
+  flex: 1;
+  border-bottom: 1px dotted #4a4038;
+  margin: 0 0.75rem;
+  transform: translateY(-0.35rem);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+@keyframes emberDrift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.06) translate(-1%, -1%); }
+}
+.ember-drift { 
+  animation: emberDrift 18s ease-in-out infinite; 
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.bob { 
+  animation: bob 2.2s ease-in-out infinite; 
+}
+
+.link-underline { 
+  position: relative; 
+}
+.link-underline::after {
+  content: '';
+  position: absolute; 
+  left: 0; 
+  bottom: -4px;
+  width: 0; 
+  height: 1px; 
+  background: #c89b4a;
+  transition: width 0.25s ease;
+}
+.link-underline:hover::after { 
+  width: 100%; 
+}
+
+.tab-btn[data-active="true"] {
+  color: #171310;
+  background-color: #c89b4a;
+  border-color: #c89b4a;
+}

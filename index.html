@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ember &amp; Oak — Wood-Fired Restaurant</title>
+<meta name="description" content="Ember & Oak — a wood-fired kitchen serving seasonal, local food." />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
+<meta property="og:type" content="restaurant.restaurant" />
+<meta property="og:title" content="Ember & Oak — Wood-Fired Restaurant" />
+<meta property="og:description" content="Live-fire cooking, ingredients from farms you can visit, and a table that's always warm." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ember & Oak — Wood-Fired Restaurant" />
+<meta name="twitter:description" content="Live-fire cooking, ingredients from farms you can visit, and a table that's always warm." />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Ember & Oak",
+  "servesCuisine": "Wood-Fired",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "128 Maple Street",
+    "addressLocality": "Riverside",
+    "addressRegion": "CA",
+    "postalCode": "92501"
+  },
+  "telephone": "+1-555-812-4471",
+  "email": "hello@emberandoak.com"
+}
+</script>
+
+<script>
+  // Set the theme before first paint to avoid a flash of the wrong theme.
+  // Priority: saved preference > OS preference > dark (site default).
+  (function () {
+    const saved = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const useDark = saved ? saved === 'dark' : !prefersLight;
+    document.documentElement.classList.toggle('dark', useDark);
+  })();
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          char:      '#171310',
+          charpanel: '#221c17',
+          charline:  '#3a3129',
+          gold:      '#c89b4a',
+          ember:     '#a8462f',
+          cream:     '#f2ead9',
+          muted:     '#a79b87',
+        },
+        fontFamily: {
+          display: ['"Fraunces"', 'serif'],
+          body: ['"Inter"', 'sans-serif'],
+          mono: ['"Space Mono"', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-body bg-cream dark:bg-char text-char dark:text-cream antialiased transition-colors duration-300">
+
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-colors duration-300">
+  <nav class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="#home" class="font-display italic text-2xl tracking-wide text-char dark:text-cream">
+      Ember <span class="text-gold">&amp;</span> Oak
+    </a>
+
+    <ul class="hidden md:flex items-center gap-7 font-body text-xs lg:text-sm tracking-wide uppercase text-char/90 dark:text-cream/90">
+      <li><a href="#about" class="link-underline">Story</a></li>
+      <li><a href="#chef" class="link-underline">Chef</a></li>
+      <li><a href="#gallery" class="link-underline">Atmosphere</a></li>
+      <li><a href="#menu" class="link-underline">Menu</a></li>
+      <li><a href="#events" class="link-underline">Events</a></li>
+      <li><a href="#reviews" class="link-underline">Reviews</a></li>
+      <li><a href="#reserve" class="link-underline">Reserve</a></li>
+    </ul>
+
+    <div class="hidden md:flex items-center gap-3">
+      <button id="theme-toggle" aria-label="Toggle theme" class="p-2 border border-char/20 dark:border-charline hover:border-gold rounded-full transition-colors">
+        <svg id="sun-icon" class="w-5 h-5 hidden dark:block text-gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+        <svg id="moon-icon" class="w-5 h-5 block dark:hidden text-char" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+      </button>
+
+      <a href="#order" class="bg-char text-cream dark:bg-gold dark:text-char text-xs uppercase tracking-wider font-semibold px-4 py-2.5 hover:opacity-90 transition-opacity">
+        Order Online
+      </a>
+
+      <a href="#reserve" class="border border-gold text-gold hover:bg-gold hover:text-char transition-colors duration-300 text-xs uppercase tracking-wide px-4 py-2.5">
+        Book Table
+      </a>
+    </div>
+
+    <div class="flex items-center gap-2 md:hidden">
+      <button id="mobile-theme-toggle" aria-label="Toggle theme" class="p-2 text-char dark:text-cream">
+        <svg class="w-6 h-6 dark:hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+        <svg class="w-6 h-6 hidden dark:block text-gold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+      </button>
+      <button id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu" class="text-char dark:text-cream p-2">
+        <svg id="icon-open" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="md:hidden hidden bg-cream/98 dark:bg-char/98 border-t border-char/10 dark:border-charline">
+    <ul class="flex flex-col items-center gap-6 py-8 font-body text-base uppercase tracking-wide">
+      <li><a href="#about" class="mobile-link">Story</a></li>
+      <li><a href="#chef" class="mobile-link">Chef</a></li>
+      <li><a href="#gallery" class="mobile-link">Atmosphere</a></li>
+      <li><a href="#menu" class="mobile-link">Menu</a></li>
+      <li><a href="#events" class="mobile-link">Events</a></li>
+      <li><a href="#reviews" class="mobile-link">Reviews</a></li>
+      <li><a href="#reserve" class="mobile-link text-gold border border-gold px-6 py-2.5">Book a Table</a></li>
+    </ul>
+  </div>
+</header>
+
+<section id="home" class="relative h-[100svh] min-h-[560px] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 ember-drift"
+       style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop');
+              background-size:cover; background-position:center;">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-cream via-cream/70 to-cream/40 dark:from-char dark:via-char/70 dark:to-char/40"></div>
+
+  <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+    <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs sm:text-sm mb-6">Wood-Fired &middot; Seasonal &middot; Local</p>
+    <h1 class="font-display italic font-medium text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-char dark:text-cream mb-6">
+      Food cooked the<br class="hidden sm:block"> way it should be.
+    </h1>
+    <p class="text-char/80 dark:text-muted text-base sm:text-lg max-w-xl mx-auto mb-10">
+      Live-fire cooking, ingredients from farms you can visit, and a table
+      that's always warm. Come hungry.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#menu" class="w-full sm:w-auto bg-gold text-char font-body font-semibold uppercase tracking-wide text-sm px-8 py-3.5 hover:opacity-90 transition-opacity">
+        View Menu
+      </a>
+      <a href="#reserve" class="w-full sm:w-auto border border-char/40 dark:border-cream/40 text-char dark:text-cream font-body uppercase tracking-wide text-sm px-8 py-3.5 hover:border-gold hover:text-gold transition-colors">
+        Book a Table
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal order-2 lg:order-1">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1200&auto=format&fit=crop"
+             alt="Chef preparing a wood-fired dish in the Ember & Oak kitchen"
+             width="1200" height="520" loading="lazy" decoding="async"
+             class="w-full h-[420px] sm:h-[520px] object-cover" />
+        <div class="hidden sm:block absolute -bottom-6 -right-6 bg-gold text-char font-mono text-center px-6 py-5 border-4 border-cream dark:border-char">
+          <span class="block text-3xl font-bold leading-none">12</span>
+          <span class="block text-[11px] uppercase tracking-widest mt-1">Years Open</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">Our Story</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl mb-6 leading-tight text-char dark:text-cream">A kitchen built around fire and patience.</h2>
+      <p class="text-char/80 dark:text-muted leading-relaxed mb-4">
+        Ember &amp; Oak started in 2013 as a single wood oven and a folding
+        table. Today it's still the same idea, just with more chairs.
+      </p>
+      <p class="text-char/80 dark:text-muted leading-relaxed mb-10">
+        Everything on the menu changes with the seasons, because that's
+        when it tastes best.
+      </p>
+
+      <div class="grid sm:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-display text-lg mb-1 text-char dark:text-cream">Live-Fire</h3>
+          <p class="text-char/70 dark:text-muted text-sm">Every dish touches wood-fired heat.</p>
+        </div>
+        <div>
+          <h3 class="font-display text-lg mb-1 text-char dark:text-cream">Seasonal</h3>
+          <p class="text-char/70 dark:text-muted text-sm">Rewritten as seasons change.</p>
+        </div>
+        <div>
+          <h3 class="font-display text-lg mb-1 text-char dark:text-cream">Local</h3>
+          <p class="text-char/70 dark:text-muted text-sm">Sourced within 30 miles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chef" class="bg-white/50 dark:bg-charpanel py-24 border-y border-char/10 dark:border-charline">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">Meet The Chef</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl mb-6 text-char dark:text-cream">"Fire doesn't lie. It demands respect and simplicity."</h2>
+      <p class="text-char/80 dark:text-muted leading-relaxed mb-6">
+        Executive Chef Liam Vance spent over a decade working in open-flame kitchens across Europe before returning home to establish Ember &amp; Oak. His philosophy centers around honoring the raw product.
+      </p>
+      <blockquote class="font-display italic text-xl text-gold border-l-2 border-gold pl-4 my-6">
+        "When you cook with oak and live coals, you can't hide behind heavy sauces. The ingredient speaks for itself."
+      </blockquote>
+      <p class="font-mono text-sm uppercase tracking-wider text-char/60 dark:text-muted">Chef Liam Vance &middot; Founder &amp; Executive Chef</p>
+    </div>
+    <div class="reveal">
+      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1000&auto=format&fit=crop" alt="Executive Chef Liam Vance in the Ember & Oak kitchen" width="1000" height="450" loading="lazy" decoding="async" class="w-full h-[450px] object-cover shadow-lg">
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="py-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-center reveal mb-12">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-3">Atmosphere</p>
+      <h2 class="font-display italic text-3xl sm:text-4xl text-char dark:text-cream">Inside the Restaurant</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+      <div class="overflow-hidden group"><img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop" alt="Warm dining room interior at Ember & Oak" width="800" height="288" loading="lazy" decoding="async" class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"></div>
+      <div class="overflow-hidden group"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop" alt="Wood-fired oven glowing with live coals" width="800" height="288" loading="lazy" decoding="async" class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"></div>
+      <div class="overflow-hidden group sm:col-span-2 lg:col-span-1"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" alt="Bar and seating area at Ember & Oak" width="800" height="288" loading="lazy" decoding="async" class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"></div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="bg-white/50 dark:bg-charpanel py-24 sm:py-32 border-t border-char/10 dark:border-charline">
+  <div class="max-w-4xl mx-auto px-6 lg:px-10">
+    <div class="text-center reveal mb-14">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">The Menu</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl text-char dark:text-cream">What's Cooking</h2>
+    </div>
+
+    <div class="reveal bg-gold/10 border border-gold/40 p-6 mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="font-mono text-xs uppercase tracking-widest text-gold bg-gold/20 px-3 py-1 inline-block mb-2">Today's Special</span>
+        <h4 class="font-display text-xl text-char dark:text-cream">Truffle Wild Mushroom Flatbread</h4>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Wood-fired crust, locally foraged mushrooms, aged parmesan, truffle oil.</p>
+      </div>
+      <span class="font-mono text-gold text-xl font-bold">$22</span>
+    </div>
+
+    <div class="reveal text-center mb-10 text-xs font-mono tracking-wide text-char/60 dark:text-muted uppercase">
+      📱 Prefer digital browsing? Scan the QR code at your table for our full interactive menu.
+    </div>
+
+    <div class="reveal flex flex-wrap justify-center gap-2 sm:gap-3 mb-14" id="menu-tabs" role="tablist" aria-label="Menu categories">
+      <button class="tab-btn px-5 py-2 text-sm uppercase tracking-wider font-mono border border-char/20 dark:border-charline transition-colors" data-active="true" data-category="starters" role="tab" aria-selected="true" aria-controls="panel-starters" id="tab-starters" tabindex="0">Starters</button>
+      <button class="tab-btn px-5 py-2 text-sm uppercase tracking-wider font-mono border border-char/20 dark:border-charline transition-colors" data-category="mains" role="tab" aria-selected="false" aria-controls="panel-mains" id="tab-mains" tabindex="-1">Main Courses</button>
+      <button class="tab-btn px-5 py-2 text-sm uppercase tracking-wider font-mono border border-char/20 dark:border-charline transition-colors" data-category="desserts" role="tab" aria-selected="false" aria-controls="panel-desserts" id="tab-desserts" tabindex="-1">Desserts</button>
+      <button class="tab-btn px-5 py-2 text-sm uppercase tracking-wider font-mono border border-char/20 dark:border-charline transition-colors" data-category="drinks" role="tab" aria-selected="false" aria-controls="panel-drinks" id="tab-drinks" tabindex="-1">Drinks</button>
+    </div>
+
+    <ul class="menu-panel space-y-8" data-category="starters" role="tabpanel" id="panel-starters" aria-labelledby="tab-starters">
+      <li>
+        <div class="flex items-baseline">
+          <span class="font-display text-lg text-char dark:text-cream">Charred Octopus</span>
+          <span class="menu-leader"></span>
+          <span class="font-mono text-gold">$18</span>
+        </div>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Smoked paprika, white beans, lemon oil.</p>
+      </li>
+      <li>
+        <div class="flex items-baseline">
+          <span class="font-display text-lg text-char dark:text-cream">Burrata &amp; Heirloom Tomato</span>
+          <span class="menu-leader"></span>
+          <span class="font-mono text-gold">$15</span>
+        </div>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Basil oil, aged balsamic, sourdough crumb.</p>
+      </li>
+    </ul>
+
+    <ul class="menu-panel hidden space-y-8" data-category="mains" role="tabpanel" id="panel-mains" aria-labelledby="tab-mains">
+      <li>
+        <div class="flex items-baseline">
+          <span class="font-display text-lg text-char dark:text-cream">Wood-Fired Ribeye</span>
+          <span class="menu-leader"></span>
+          <span class="font-mono text-gold">$42</span>
+        </div>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Bone-in, 28-day aged, roasted bone marrow butter.</p>
+      </li>
+    </ul>
+
+    <ul class="menu-panel hidden space-y-8" data-category="desserts" role="tabpanel" id="panel-desserts" aria-labelledby="tab-desserts">
+      <li>
+        <div class="flex items-baseline">
+          <span class="font-display text-lg text-char dark:text-cream">Basque Burnt Cheesecake</span>
+          <span class="menu-leader"></span>
+          <span class="font-mono text-gold">$12</span>
+        </div>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Griottine cherries, whipped crème fraîche.</p>
+      </li>
+    </ul>
+
+    <ul class="menu-panel hidden space-y-8" data-category="drinks" role="tabpanel" id="panel-drinks" aria-labelledby="tab-drinks">
+      <li>
+        <div class="flex items-baseline">
+          <span class="font-display text-lg text-char dark:text-cream">Smoked Old Fashioned</span>
+          <span class="menu-leader"></span>
+          <span class="font-mono text-gold">$16</span>
+        </div>
+        <p class="text-char/70 dark:text-muted text-sm mt-1">Oak-smoked bourbon, orange bitters, charred sugar.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="events" class="py-24">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-center reveal mb-14">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">Upcoming Events</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl text-char dark:text-cream">Special Evenings</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 reveal">
+      <div class="bg-white/50 dark:bg-charpanel border border-char/10 dark:border-charline p-8 flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-gold bg-gold/10 px-3 py-1 inline-block mb-4">Every Thursday</span>
+          <h3 class="font-display text-2xl mb-3 text-char dark:text-cream">Live Acoustic &amp; Wine Tasting</h3>
+          <p class="text-char/70 dark:text-muted text-sm mb-6">Experience selected local wines paired with a special 4-course menu.</p>
+        </div>
+        <a href="#reserve" class="text-gold text-sm uppercase font-semibold hover:underline">Reserve Spot &rarr;</a>
+      </div>
+      <div class="bg-white/50 dark:bg-charpanel border border-char/10 dark:border-charline p-8 flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-widest text-gold bg-gold/10 px-3 py-1 inline-block mb-4">Last Sunday</span>
+          <h3 class="font-display text-2xl mb-3 text-char dark:text-cream">Chef’s Masterclass</h3>
+          <p class="text-char/70 dark:text-muted text-sm mb-6">Learn live-fire cooking directly from our Head Chef.</p>
+        </div>
+        <a href="#reserve" class="text-gold text-sm uppercase font-semibold hover:underline">Secure Spot &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="bg-white/50 dark:bg-charpanel py-24 sm:py-32 border-t border-char/10 dark:border-charline">
+  <div class="max-w-5xl mx-auto px-6 lg:px-10">
+    <div class="text-center reveal mb-14">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">Testimonials</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl text-char dark:text-cream">What People Are Saying</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 reveal mb-16">
+      <div class="bg-cream dark:bg-char border border-char/10 dark:border-charline p-6 flex flex-col justify-between">
+        <p class="text-char/80 dark:text-muted text-sm italic mb-6">"The best wood-fired ribeye in town. Unforgettable dinner spot."</p>
+        <div>
+          <p class="font-display text-char dark:text-cream">Elena Vance</p>
+          <p class="text-gold text-xs font-mono">Google Reviews</p>
+        </div>
+      </div>
+      <div class="bg-cream dark:bg-char border border-char/10 dark:border-charline p-6 flex flex-col justify-between">
+        <p class="text-char/80 dark:text-muted text-sm italic mb-6">"An absolute gem! You can truly taste the quality of local ingredients."</p>
+        <div>
+          <p class="font-display text-char dark:text-cream">Mark Berisha</p>
+          <p class="text-gold text-xs font-mono">TripAdvisor</p>
+        </div>
+      </div>
+      <div class="bg-cream dark:bg-char border border-char/10 dark:border-charline p-6 flex flex-col justify-between">
+        <p class="text-char/80 dark:text-muted text-sm italic mb-6">"Incredible atmosphere and wonderful service. Must-try cocktails!"</p>
+        <div>
+          <p class="font-display text-char dark:text-cream">Sarah Jenkins</p>
+          <p class="text-gold text-xs font-mono">Food &amp; Wine Mag</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal bg-cream dark:bg-char border border-char/10 dark:border-charline p-8 sm:p-10 max-w-2xl mx-auto">
+      <h3 class="font-display italic text-2xl mb-4 text-char dark:text-cream text-center">Leave a Google Review</h3>
+      <p class="text-char/70 dark:text-muted text-xs text-center mb-6">Share your feedback directly on our Google Business profile.</p>
+      <form id="review-form" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-1">Your Name</label>
+          <input type="text" id="review-name" required placeholder="John Doe" class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2 text-char dark:text-cream">
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-1">Your Review</label>
+          <textarea id="review-text" rows="2" required placeholder="Write your experience..." class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2 text-char dark:text-cream resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-gold text-char font-semibold uppercase tracking-wide text-sm py-3 hover:opacity-95 transition-opacity">
+          Continue to Google Reviews &rarr;
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-16">
+    <div class="reveal lg:col-span-3">
+      <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-4">Reserve a Table</p>
+      <h2 class="font-display italic text-4xl sm:text-5xl mb-10 leading-tight text-char dark:text-cream">We'll save you a seat by the fire.</h2>
+
+      <form id="reservation-form" class="grid sm:grid-cols-2 gap-6">
+        <div class="sm:col-span-1">
+          <label for="name" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Full Name</label>
+          <input id="name" name="name" type="text" required placeholder="Jane Smith" autocomplete="name"
+                 class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+          <span id="name-error" class="text-red-500 text-xs hidden mt-1">Please enter a valid name (letters, spaces, hyphens, apostrophes).</span>
+        </div>
+        <div class="sm:col-span-1">
+          <label for="email" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Valid Email</label>
+          <input id="email" name="email" type="email" required placeholder="jane@email.com" autocomplete="email"
+                 class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+          <span id="email-error" class="text-red-500 text-xs hidden mt-1">Please enter a valid email.</span>
+        </div>
+        <div class="sm:col-span-1">
+          <label for="date" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Date (Future Only)</label>
+          <input id="date" name="date" type="date" required
+                 class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+          <span id="date-error" class="text-red-500 text-xs hidden mt-1">Cannot select a past date.</span>
+        </div>
+        <div class="sm:col-span-1">
+          <label for="time" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Time</label>
+          <input id="time" name="time" type="time" required
+                 class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+        </div>
+        <div class="sm:col-span-1">
+          <label for="guests" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Guests</label>
+          <select id="guests" name="guests"
+                  class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+            <option class="dark:bg-char" value="1">1 Guest</option>
+            <option class="dark:bg-char" value="2" selected>2 Guests</option>
+            <option class="dark:bg-char" value="3">3 Guests</option>
+            <option class="dark:bg-char" value="4">4 Guests</option>
+            <option class="dark:bg-char" value="5+">5+ Guests</option>
+          </select>
+        </div>
+       <div class="sm:col-span-1">
+  <label for="phone" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Phone Number</label>
+  <input id="phone" name="phone" type="tel" placeholder="(555) 123-4567" required autocomplete="tel"
+         class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream transition-colors">
+  <span id="phone-error" class="text-red-500 text-xs hidden mt-1">Please enter a valid phone number.</span>
+</div>
+        <div class="sm:col-span-2">
+          <label for="message" class="block text-xs uppercase tracking-wide text-char/70 dark:text-muted mb-2">Special Requests</label>
+          <textarea id="message" name="message" rows="3" placeholder="Allergies, celebrations..."
+                    class="w-full bg-transparent border-b border-char/20 dark:border-charline focus:border-gold py-2.5 text-char dark:text-cream resize-none"></textarea>
+        </div>
+
+        <div class="sm:col-span-2 mt-4">
+          <button type="submit" class="w-full sm:w-auto bg-gold text-char font-semibold uppercase tracking-wide text-sm px-10 py-3.5 hover:opacity-90 transition-opacity">
+            Confirm Reservation
+          </button>
+          <p id="form-success" class="hidden text-gold text-sm mt-4 font-semibold">
+            Thank you! Your reservation request has been received.
+          </p>
+          <p id="form-error" class="hidden text-red-500 text-sm mt-4 font-semibold">
+            Something went wrong sending your request. Please call us at (555) 812-4471.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <div class="reveal lg:col-span-2 bg-white/50 dark:bg-charpanel border border-char/10 dark:border-charline p-8 sm:p-10 self-start">
+      <h3 class="font-display italic text-2xl mb-8 text-char dark:text-cream">Visit Us</h3>
+      <div class="space-y-6 text-sm text-char/80 dark:text-muted">
+        <p>128 Maple Street<br>Riverside, CA 92501</p>
+        <p>(555) 812-4471</p>
+        <p>hello@emberandoak.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="order" class="bg-white/50 dark:bg-charpanel py-20 border-t border-char/10 dark:border-charline text-center">
+  <div class="max-w-4xl mx-auto px-6">
+    <p class="font-mono uppercase tracking-[0.3em] text-gold text-xs mb-3">Connect &amp; Takeaway</p>
+    <h2 class="font-display italic text-3xl sm:text-4xl mb-4 text-char dark:text-cream">Find Us Online</h2>
+    <p class="text-char/70 dark:text-muted text-sm mb-10">Follow us on social media, leave a review, or order your favorite dishes for takeaway.</p>
+    
+    <div class="flex flex-wrap justify-center items-center gap-4 mb-10">
+      
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.582 9 4.75V8z"/></svg>
+        Facebook
+      </a>
+
+      <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.5.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-3.79.05-7.59.07-11.38.01-4.62 0-9.24.01-13.86z"/></svg>
+        TikTok
+      </a>
+
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+
+      <a href="https://tripadvisor.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 6.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zm0 9.5a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-16C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm0-13a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+        TripAdvisor
+      </a>
+
+      <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 border border-char/20 dark:border-charline px-5 py-3 text-xs uppercase font-mono tracking-wider hover:border-gold hover:text-gold transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C7.802 0 4 3.403 4 7.602 4 11.8 7.4 16.9 12 24c4.6-7.1 8-12.2 8-16.4C20 3.403 16.198 0 12 0zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+        Google Maps
+      </a>
+
+    </div>
+
+    <div>
+      <a href="#menu" class="bg-gold text-char px-8 py-3.5 text-xs uppercase font-mono tracking-wider font-semibold hover:opacity-90 transition-opacity inline-block">
+        Order on Delivery Apps
+      </a>
+    </div>
+
+  </div>
+</section>
+<footer class="py-12 border-t border-char/10 dark:border-charline">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 text-center text-xs text-char/60 dark:text-muted">
+    <p>&copy; <span id="year"></span> Ember &amp; Oak. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
